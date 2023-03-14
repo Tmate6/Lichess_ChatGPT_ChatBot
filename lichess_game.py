@@ -55,22 +55,12 @@ class Lichess_Game:
         self.engine.id = {"name": "ChatGPT"}
 
     def make_move(self) -> tuple[UCI_Move, Offer_Draw, Resign]:
-        print("board >>>", chess.pgn.Game.from_board(self.board))
-        print(self.board)
-
-        move = makeMove(self.board)
-
-        message = f'Made move {move}'
-        print("move >>>", move)
-
+        move, message = makeMove(self.board)
         offer_draw = False
         resign = False
 
         print(message)
         self.last_message = message
-        print(self.board.push(move))
-        print(self.board)
-
         return move.uci(), False and self.draw_enabled, False and self.resign_enabled
 
     def update(self, gameState_event: dict) -> bool:
@@ -147,17 +137,6 @@ class Lichess_Game:
 
     def end_game(self) -> None:
         pass
-        '''self.engine.quit()
-        self.engine.close()
-
-        for book_reader in self.book_readers:
-            book_reader.close()
-
-        if self.syzygy_tablebase:
-            self.syzygy_tablebase.close()
-
-        if self.gaviota_tablebase:
-            self.gaviota_tablebase.close()'''
 
     def _is_drawish(self) -> bool:
         return False
@@ -170,22 +149,6 @@ class Lichess_Game:
 
     def _make_opening_explorer_move(self) -> tuple[chess.Move, Performance, tuple[int, int, int]] | None:
         return
-    '''def _get_opening_explorer_top_move(self, moves: list[dict]) -> dict:
-        selection = self.config['engine']['online_moves']['opening_explorer']['selection']
-        anti = self.config['engine']['online_moves']['opening_explorer']['anti']
-
-        if selection == 'win_rate':
-            for move in moves:
-                move['wins'] = move['white'] if self.board.turn else move['black']
-                move['losses'] = move['black'] if self.board.turn else move['white']
-
-            return max(moves, key=lambda move: move['wins'] / (move['white'] + move['draws'] + move['black']))
-        else:
-            min_or_max = min if anti else max
-            top_move = min_or_max(moves, key=lambda move: move['performance'])
-            top_move['wins'] = top_move['white'] if self.board.turn else top_move['black']
-            top_move['losses'] = top_move['black'] if self.board.turn else top_move['white']
-            return top_move'''
 
     def _make_cloud_move(self) -> tuple[chess.Move, CP_Score, Depth] | None:
         return

@@ -21,18 +21,18 @@ def handleChatInput(inputMove, chatBoard):
 
     try:
         chatBoard.push_san(move)
-        print("move_normal")
+        fails = noOfFails
         noOfFails = 0
-        return move
+        return move, "move_normal", fails
     except:
         pass
 
     try:
         ModMove = move[0].lower() + move[1:]
         chatBoard.push_san(ModMove)
-        print("move_lower")
+        fails = noOfFails
         noOfFails = 0
-        return ModMove
+        return ModMove, "move_lower", fails
     except:
         pass
 
@@ -41,9 +41,9 @@ def handleChatInput(inputMove, chatBoard):
         for i in range(len(move)):
             try:
                 chatBoard.push_san(move[i:i + chars])
-                print(str("move_scan: " + str(move[i:i + chars])))
+                fails = noOfFails
                 noOfFails = 0
-                return move[i:i + chars]
+                return move[i:i + chars], str("move_scan"), fails
             except:
                 pass
 
@@ -72,8 +72,6 @@ def get_gpt_response(illegalMove, chatBoard):
     else:
         prompt = f"Reply next chess move as {color}. Only say the move. {str(chess.pgn.Game.from_board(chatBoard))[93:-2]}"
 
-    print(str("\n" + prompt))
-
     gptMove = ""
 
     for i in range(5):
@@ -95,15 +93,14 @@ def get_gpt_response(illegalMove, chatBoard):
             gptMove = gptMove[i:]
             break
 
-    print(gptMove)
     return gptMove
 
 def makeMove(board):
-    move = str(handleChatInput(get_gpt_response("", board), board))
+    move, msg, times = handleChatInput(get_gpt_response("", board), board)
+    message = str(str(msg) + ": " + str(move) + "  " + str(times+1) + " atempt(s).")
     for i in range(config_file["GPT_Settings"]["Max_fails"]):
         board.pop()
         try:
-            print("move", move)
-            return board.parse_san(move)
+            return board.parse_san(str(move)), str(message)
         except:
             pass
