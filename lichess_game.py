@@ -52,7 +52,7 @@ class Lichess_Game:
         self.resign_scores: deque[chess.engine.PovScore] = deque(maxlen=consecutive_resign_moves)
         self.last_message = 'No eval available yet.'
 
-        self.bot = ChatChess.Game("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")
+        self.bot = ChatChess.Game("INSERT_API_TOKEN")
         self.engine = Engine
         self.engine.id = {"name": "ChatGPT"}
 
