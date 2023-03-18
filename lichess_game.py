@@ -14,7 +14,7 @@ from aliases import DTM, DTZ, CP_Score, Depth, Learn, Offer_Draw, Outcome, Perfo
 from api import API
 from enums import Game_Status, Variant
 
-from ChatGPT import makeMove
+from ChatChess import ChatChess
 
 class Engine:
     def __init__(self, id):
@@ -51,16 +51,20 @@ class Lichess_Game:
         consecutive_resign_moves = config['engine']['resign']['consecutive_moves']
         self.resign_scores: deque[chess.engine.PovScore] = deque(maxlen=consecutive_resign_moves)
         self.last_message = 'No eval available yet.'
+
+        self.bot = ChatChess.Game("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")
         self.engine = Engine
         self.engine.id = {"name": "ChatGPT"}
 
     def make_move(self) -> tuple[UCI_Move, Offer_Draw, Resign]:
-        move, message = makeMove(self.board)
-        offer_draw = False
-        resign = False
+        self.bot.board = self.board
 
-        print(message)
-        self.last_message = message
+        self.bot.getGPTMove()
+        move = self.bot.lastMove["uci"]
+
+        print(self.bot.message)
+
+        self.last_message = self.bot.message
         return move.uci(), False and self.draw_enabled, False and self.resign_enabled
 
     def update(self, gameState_event: dict) -> bool:
