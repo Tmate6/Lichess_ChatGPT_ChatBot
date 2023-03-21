@@ -2,7 +2,7 @@
 ### LiChess (BotLi)
 ##
 
-token: "XXXXXXXXXXXXXXXXXXXXXXXX"         # Lichess OAuth2 Token.
+token: ""         # Lichess OAuth2 Token.
 
 challenge:                                # Incoming challenges. (Commenting allowed)
   concurrency: 1                          # Number of games to play simultaneously.
@@ -65,6 +65,7 @@ API_key: "" # Insert OpenAI API key here
 GPT_Settings:
   Max_tokens: 10  # Maximum amount of tokens to use per ChatGPT answer
   Max_fails: 5  # Maximum amount of times to resend prompt to ChatGPT on failed move
+  Max_time: 5  # Maximum amount of seconds until timing out ChatGPT move request
 
 
 ##

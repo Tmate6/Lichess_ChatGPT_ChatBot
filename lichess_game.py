@@ -16,6 +16,11 @@ from enums import Game_Status, Variant
 
 from ChatChess import ChatChess
 
+import yaml
+
+with open('config.yml', 'r') as file:
+    config_file = yaml.safe_load(file)
+
 class Engine:
     def __init__(self, id):
         self.id = id
@@ -37,34 +42,32 @@ class Lichess_Game:
         self.status = Game_Status(gameFull_event['state']['status'])
         self.draw_enabled: bool = config['engine']['offer_draw']['enabled']
         self.resign_enabled: bool = config['engine']['resign']['enabled']
-        self.ponder_enabled: bool = True
         self.move_overhead = self._get_move_overhead()
-        self.book_readers = self._get_book_readers()
-        self.syzygy_tablebase = self._get_syzygy_tablebase()
-        self.gaviota_tablebase = self._get_gaviota_tablebase()
-        self.out_of_book_counter = 0
-        self.out_of_opening_explorer_counter = 0
-        self.out_of_cloud_counter = 0
-        self.out_of_chessdb_counter = 0
-        consecutive_draw_moves = config['engine']['offer_draw']['consecutive_moves']
-        self.draw_scores: deque[chess.engine.PovScore] = deque(maxlen=consecutive_draw_moves)
-        consecutive_resign_moves = config['engine']['resign']['consecutive_moves']
-        self.resign_scores: deque[chess.engine.PovScore] = deque(maxlen=consecutive_resign_moves)
         self.last_message = 'No eval available yet.'
 
-        self.bot = ChatChess.Game("INSERT_API_TOKEN")
+        self.bot = self.setupChatGPT()
         self.engine = Engine
         self.engine.id = {"name": "ChatGPT"}
 
+    def setupChatGPT(self):
+        bot = ChatChess.Game(config_file["API_key"])
+        bot.maxTokens = config_file["GPT_Settings"]["Max_tokens"]
+        bot.maxFails = config_file["GPT_Settings"]["Max_fails"]
+        bot.maxTime = config_file["GPT_Settings"]["Max_time"]
+        return bot
+
     def make_move(self) -> tuple[UCI_Move, Offer_Draw, Resign]:
         self.bot.board = self.board
-
-        self.bot.getGPTMove()
-        move = self.bot.lastMove["uci"]
-
-        print(self.bot.message)
+        try:
+            self.bot.getGPTMove()
+        except:
+            pass
 
         self.last_message = self.bot.message
+        move = self.bot.move["ChatGPT"]["uci"]
+
+        print(self.last_message)
+
         return move.uci(), False and self.draw_enabled, False and self.resign_enabled
 
     def update(self, gameState_event: dict) -> bool:
