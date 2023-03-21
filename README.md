@@ -1,8 +1,6 @@
 # ChatBot
 A Lichess bot powered by ChatGPT
 
-### This version is not stable. Use https://github.com/Tmate6/Lichess_ChatGPT_ChatBot/tree/5ca0e3b9f7d265bc57705d1c71c69e4668cb0d95.
-
 ### This bot uses BotLi (https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please dont sue me.
 
 ## Installation 
