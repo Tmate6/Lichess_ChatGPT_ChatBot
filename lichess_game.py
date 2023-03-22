@@ -58,17 +58,20 @@ class Lichess_Game:
 
     def make_move(self) -> tuple[UCI_Move, Offer_Draw, Resign]:
         self.bot.board = self.board
+
+        resign = False
         try:
             self.bot.getGPTMove()
         except:
-            pass
+            self.last_message = "ERROR - ChatGPT could not respond"
+            resign = True
 
         self.last_message = self.bot.message
         move = self.bot.move["ChatGPT"]["uci"]
 
         print(self.last_message)
 
-        return move.uci(), False and self.draw_enabled, False and self.resign_enabled
+        return move.uci(), False and self.draw_enabled, resign and self.resign_enabled
 
     def update(self, gameState_event: dict) -> bool:
         self.status = Game_Status(gameState_event['status'])
