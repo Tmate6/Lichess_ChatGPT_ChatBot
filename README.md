@@ -14,6 +14,6 @@ git clone https://github.com/Torom/BotLi.git && git clone https://github.com/Tma
 ```
 python -m pip install -r requirements.txt
 ```
-4. Insert Lichess API token into `config.yml` and OpenAI api key into `lichess_game.py` replacing `INSERT_API_KEY` (fix soon)
+4. Insert Lichess API token and OpenAI API key into `config.yml.default`, then save the file as `config.yml`
 
 The rest of the settings can be found in the `config.yml` file. For the documentation of BotLi, go to https://github.com/Torom/BotLi.
