@@ -1,7 +1,7 @@
 # ChatBot
-A Lichess bot powered by ChatGPT
+A Lichess bot powered by ChatGPT, using my [ChatChess Python package](https://github.com/Tmate6/ChatChess). You can play with my my bot [here](https://lichess.org/@/chat_bot)
 
-### This bot uses BotLi (https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please dont sue me.
+### This bot uses [BotLi](https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please dont sue me.
 
 ## Installation 
 
@@ -16,4 +16,4 @@ python -m pip install -r requirements.txt
 ```
 4. Insert Lichess API token and OpenAI API key into `config.yml.default`, then save the file as `config.yml`
 
-The rest of the settings can be found in the `config.yml` file. For the documentation of BotLi, go to https://github.com/Torom/BotLi.
+The settings can be found in the `config.yml` file. It includes both the settings of [ChatChess](https://github.com/Tmate6/ChatChess) and [BotLi](https://github.com/Torom/BotLi).
