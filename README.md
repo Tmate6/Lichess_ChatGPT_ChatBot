@@ -1,7 +1,7 @@
 # ChatBot
 A Lichess bot powered by ChatGPT, using my [ChatChess Python package](https://github.com/Tmate6/ChatChess). You can play with my my bot [here](https://lichess.org/@/chat_bot)
 
-### This bot uses [BotLi](https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please dont sue me.
+### This bot uses [BotLi](https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please don't sue me.
 
 ## Installation 
 
@@ -9,7 +9,7 @@ A Lichess bot powered by ChatGPT, using my [ChatChess Python package](https://gi
 ```
 git clone https://github.com/Torom/BotLi.git && git clone https://github.com/Tmate6/Lichess_ChatGPT_ChatBot.git
 ```
-2. Move all files from `Lichess_ChatGPT_ChatBot` to `BotLi` folder
+2. Move all files from `Lichess_ChatGPT_ChatBot` to `BotLi` folder (replacing the existing files)
 3. Install requirements
 ```
 python -m pip install -r requirements.txt

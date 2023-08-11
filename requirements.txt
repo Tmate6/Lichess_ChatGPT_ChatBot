@@ -1,7 +1,7 @@
-chess == 1.9.4
-psutil == 5.9.4
-PyYAML == 6.0
-requests == 2.28.2
+chess == 1.10.0
+psutil == 5.9.5
+PyYAML == 6.0.1
+requests == 2.31.0
 tenacity == 8.2.2
 openai == 0.27.2
 chatchess == 1.1.7
