@@ -1,5 +1,7 @@
 # ChatBot
-A Lichess bot powered by ChatGPT, using my [ChatChess Python package](https://github.com/Tmate6/ChatChess). You can play with my my bot [here](https://lichess.org/@/chat_bot)
+## Code for my ChatGPT powered bot on Lichess. Play against it [here](https://lichess.org/@/chat_bot/)
+
+A Lichess bot powered by ChatGPT, using my [ChatChess Python package](https://github.com/Tmate6/ChatChess).
 
 ### This bot uses [BotLi](https://github.com/Torom/BotLi) to connect to Lichess. Some files need to be changed to use ChatGPT. Please don't sue me.
 

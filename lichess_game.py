@@ -73,7 +73,10 @@ class Lichess_Game:
         except:
             self.last_message = "ERROR - ChatGPT could not respond"
             resign = True
-            move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0])
+            try:
+                move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0])
+            except:
+                move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0])[:-2]
 
         print(self.last_message)
 
