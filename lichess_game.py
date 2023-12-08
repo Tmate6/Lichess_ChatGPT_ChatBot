@@ -76,7 +76,7 @@ class Lichess_Game:
             try:
                 move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0])
             except:
-                move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0])[:-2]
+                move = self.board.parse_san(str(self.board.legal_moves).split("(")[1].split(",")[0][:-2])
 
         print(self.last_message)
 
